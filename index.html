@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+<title>FastPoint</title>
+
+<body>
+<div class="modal" id="orderModal">
+
+    <div class="modal-content">
+
+        <h2>Оформление заказа</h2>
+
+        <input type="text"
+        id="clientName"
+        placeholder="Ваше имя">
+
+        <input type="text"
+        id="clientPhone"
+        placeholder="Номер телефона">
+
+        <input type="text"
+        id="clientAddress"
+        placeholder="Адрес доставки">
+<div id="captchaBox" style="
+    background:#f3f3f3;
+    padding:14px;
+    border-radius:12px;
+    font-weight:bold;
+    text-align:center;
+    color:#111;
+    font-size:22px;
+    letter-spacing:4px;
+">
+</div>
+<input
+type="text"
+id="captchaInput"
+placeholder="Введите капчу">
+        <select id="payment">
+
+            <option>Оплата картой</option>
+            <option>Наличными</option>
+            <option>Онлайн</option>
+
+        </select>
+
+        <button onclick="confirmOrder()">
+            Подтвердить заказ
+        </button>
+
+        <button onclick="closeModal()">
+            Закрыть
+        </button>
+
+    </div>
+
+</div>
+<header class="main-header">
+
+    <div class="logo">
+        🍔 FastPoint
+    </div>
+
+    <nav class="main-nav">
+
+        <button class="nav-item active"
+        onclick="showPage('home', this)">
+            Главная
+        </button>
+
+        <button class="nav-item"
+        onclick="showPage('menu', this)">
+            Меню
+        </button>
+
+        <button class="nav-item"
+        onclick="showPage('about', this)">
+            О нас
+        </button>
+    </nav>
+    <div style="display:flex; align-items:center; gap:15px;">
+
+        <div class="main-phone">
+            📞 +7 (999) 456-78-90
+        </div>
+     <!-- HEADER -->
+
+<button class="cart-btn"
+onclick="openCart()">
+
+    🛒 Корзина
+    (<span id="cartCount">0</span>)
+
+</button>
+
+    </div>
+
+</header>
+
+<!-- HOME PAGE -->
+
+<section id="home" class="page active">
+
+    <section class="hero">
+
+        <div class="hero-overlay">
+
+            <h1>FastPoint</h1>
+
+            <p class="hero-text">
+
+                Самые сочные бургеры, горячие снеки
+                и быстрая доставка прямо до двери.
+
+            </p>
+
+            <div class="hero-buttons">
+
+                <button onclick="showPage('menu',
+                document.querySelectorAll('.nav-item')[1])">
+
+                    Смотреть меню
+
+                </button>
+
+                <button onclick="showPage('about',
+                document.querySelectorAll('.nav-item')[2])">
+
+                    О ресторане
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FEATURES -->
+
+    <section class="features">
+
+        <div class="feature-card">
+            🍔
+            <h3>Свежие продукты</h3>
+
+            <p>
+                Только качественные ингредиенты.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            ⚡
+            <h3>Быстрая доставка</h3>
+
+            <p>
+                Горячая еда за минимальное время.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            ⭐
+            <h3>Фирменные рецепты</h3>
+
+            <p>
+                Авторские соусы и бургеры FastPoint.
+            </p>
+        </div>
+
+    </section>
+
+    <!-- DELIVERY -->
+<section class="delivery">
+    <div class="delivery-content">
+        <div class="delivery-left">
+            <h2>🚗 Доставка 24/7</h2>
+            <p>
+                Мы работаем круглосуточно,
+                чтобы ваши любимые бургеры
+                и горячие закуски приезжали
+                быстро и всегда свежими.
+            </p>
+        </div>
+        <div class="delivery-info">
+            <div class="delivery-box">
+                <h3>20-30</h3>
+                <span>минут доставка</span>
+            </div>
+            <div class="delivery-box">
+                <h3>24/7</h3>
+                <span>без выходных</span>
+            </div>
+            <div class="delivery-box">
+
+                <h3>🔥</h3>
+
+                <span>горячая еда</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</section>
+
+<!-- MENU PAGE -->
+
+<section id="menu" class="page">
+
+    <div style="padding:120px 40px 40px;">
+
+    <h1 style="
+text-align:center;
+margin-bottom:30px;
+font-size:52px;
+color:white;
+">
+    🍔 Наше меню
+</h1>  
+
+        <div class="categories">
+
+            <button class="cat active"
+            onclick="setCat('all',this)">
+                Все
+            </button>
+
+            <button class="cat"
+            onclick="setCat('combo',this)">
+                Комбо
+            </button>
+
+            <button class="cat"
+            onclick="setCat('drinks',this)">
+                Напитки
+            </button>
+
+            <button class="cat"
+            onclick="setCat('burgers',this)">
+                Бургеры
+            </button>
+
+            <button class="cat"
+            onclick="setCat('snacks',this)">
+                Снеки
+            </button>
+
+            <button class="cat"
+            onclick="setCat('desserts',this)">
+                Десерты
+            </button>
+
+        </div>
+
+        <div class="grid" id="menuGrid"></div>
+
+        <!-- CART -->
+
+        <div class="cart">
+
+            <h2>🛒 Корзина</h2>
+
+            <ul id="cart"></ul>
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                margin-top:20px;
+            ">
+
+                <h3>
+                    Сумма:
+                    <span id="total">0</span> ₽
+                </h3>
+
+                <button onclick="order()">
+                    Оформить заказ
+                </button>
+
+            </div>
+
+            <div id="status"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ABOUT PAGE -->
+
+<section id="about" class="page">
+
+    <div class="about-page">
+
+        <h1>🍔 О FastPoint</h1>
+
+        <p>
+
+            FastPoint — современный ресторан быстрого
+            питания, вдохновлённый атмосферой
+            американского street-food.
+
+        </p>
+
+        <p>
+
+            Мы начали свою историю как небольшая
+            бургерная и выросли в полноценный
+            ресторан с доставкой по всему городу.
+
+        </p>
+
+        <h2>🥩 Из чего готовим</h2>
+
+        <ul>
+
+            <li>100% говядина без заморозки</li>
+
+            <li>Свежие булочки из пекарни</li>
+
+            <li>Овощи от локальных поставщиков</li>
+
+            <li>Натуральные соусы собственного рецепта</li>
+
+        </ul>
+
+        <h2>🌍 Наши блюда</h2>
+
+        <p>
+
+            Наше меню сочетает лучшие рецепты
+            американских бургерных, европейских
+            закусок и авторских соусов.
+
+        </p>
+
+        <h2>⭐ Наша философия</h2>
+
+        <p>
+
+            Быстро, вкусно и качественно —
+            именно так должен выглядеть
+            современный fast-food.
+
+        </p>
+
+    </div>
+    <footer class="footer">
+
+    <div class="footer-content">
+
+        <div class="footer-logo">
+            🍔 FastPoint
+            <p>
+                Быстрая доставка вкусной еды 24/7
+            </p>
+        </div>
+
+        <div class="footer-links">
+
+            <h3>Навигация</h3>
+
+            <a href="#" onclick="showPage('home',
+            document.querySelectorAll('.nav-item')[0])">
+                Главная
+            </a>
+
+            <a href="#" onclick="showPage('menu',
+            document.querySelectorAll('.nav-item')[1])">
+                Меню
+            </a>
+
+            <a href="#" onclick="showPage('about',
+            document.querySelectorAll('.nav-item')[2])">
+                О нас
+            </a>
+
+        </div>
+
+        <div class="footer-contact">
+
+            <h3>Контакты</h3>
+
+            <p>📞 +7 (999) 456-78-90</p>
+
+            <p>📍 Москва, FastPoint Street</p>
+
+            <p>⏰ Работаем 24/7</p>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 FastPoint — Все права защищены
+    </div>
+
+</footer>
+
+</section>
+</body>
+</html>
